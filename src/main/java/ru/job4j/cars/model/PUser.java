@@ -6,22 +6,20 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "user")
-public class User {
+public class PUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(nullable = false)
     private String name;
-    private boolean isAuthor;
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Item> items = new ArrayList<>();
 
-    public User() {
+    public PUser() {
     }
 
-    public User(String name, boolean isAuthor) {
+    public PUser(String name) {
         this.name = name;
-        this.isAuthor = isAuthor;
     }
 
     public void addItem(Item item) {
@@ -44,14 +42,6 @@ public class User {
         this.name = name;
     }
 
-    public boolean isAuthor() {
-        return isAuthor;
-    }
-
-    public void setAuthor(boolean author) {
-        isAuthor = author;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -60,15 +50,12 @@ public class User {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        User user = (User) o;
-        return id == user.id
-                && isAuthor == user.isAuthor
-                && name.equals(user.name)
-                && Objects.equals(items, user.items);
+        PUser pUser = (PUser) o;
+        return id == pUser.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, isAuthor, items);
+        return Objects.hash(id);
     }
 }

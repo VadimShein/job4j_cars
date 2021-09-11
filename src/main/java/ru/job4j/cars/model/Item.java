@@ -5,17 +5,29 @@ import java.io.File;
 import java.util.Objects;
 
 @Entity
-@Table(name = "item")
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(nullable = false)
     private String description;
-
+    @Column(nullable = false)
     private String mark;
+    @Column(name = "body_type", nullable = false)
     private String bodyType;
     private File photo;
+    @Column(name = "is_active")
     private boolean isActive;
+
+    public Item() {
+    }
+
+    public Item(String description, String mark, String bodyType) {
+        this.description = description;
+        this.mark = mark;
+        this.bodyType = bodyType;
+        this.isActive = true;
+    }
 
     public int getId() {
         return id;
@@ -74,16 +86,11 @@ public class Item {
             return false;
         }
         Item item = (Item) o;
-        return id == item.id
-                && isActive == item.isActive
-                && Objects.equals(description, item.description)
-                && mark.equals(item.mark)
-                && bodyType.equals(item.bodyType)
-                && Objects.equals(photo, item.photo);
+        return id == item.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, description, mark, bodyType, photo, isActive);
+        return Objects.hash(id);
     }
 }
