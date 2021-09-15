@@ -19,6 +19,6 @@
         <property name="hibernate.jdbc.time_zone">Asia/Omsk</property>
 
         <mapping class="ru.job4j.cars.model.Item" />
-        <mapping class="ru.job4j.cars.model.PUser" />
+        <mapping class="ru.job4j.cars.model.User" />
     </session-factory>
 </hibernate-configuration>

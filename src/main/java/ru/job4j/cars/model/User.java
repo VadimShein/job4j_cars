@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class PUser {
+@Table(name = "users")
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -15,10 +16,10 @@ public class PUser {
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Item> items = new ArrayList<>();
 
-    public PUser() {
+    public User() {
     }
 
-    public PUser(String name) {
+    public User(String name) {
         this.name = name;
     }
 
@@ -50,8 +51,8 @@ public class PUser {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        PUser pUser = (PUser) o;
-        return id == pUser.id;
+        User user = (User) o;
+        return id == user.id;
     }
 
     @Override

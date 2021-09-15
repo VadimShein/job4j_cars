@@ -21,7 +21,7 @@ public class HbnCars {
             item1.setPhoto(new File("C://images/25.JPG"));
             session.save(item1);
 
-            PUser user1 = new PUser("user1");
+            User user1 = new User("user1");
             user1.addItem(item1);
             session.save(user1);
 
