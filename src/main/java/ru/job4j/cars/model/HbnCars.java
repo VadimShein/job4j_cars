@@ -7,6 +7,7 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import java.io.File;
+import java.time.LocalDate;
 
 public class HbnCars {
     public static void main(String[] args) {
@@ -17,7 +18,8 @@ public class HbnCars {
             Session session = sf.openSession();
             session.beginTransaction();
 
-            Item item1 = new Item("desc", "mark", "type");
+            LocalDate date = LocalDate.now();
+            Item item1 = new Item("desc", "mark", "type", date);
             item1.setPhoto(new File("C://images/25.JPG"));
             session.save(item1);
 

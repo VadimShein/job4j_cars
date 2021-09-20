@@ -2,6 +2,7 @@ package ru.job4j.cars.model;
 
 import javax.persistence.*;
 import java.io.File;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -18,15 +19,18 @@ public class Item {
     private File photo;
     @Column(name = "is_active")
     private boolean isActive;
+    @Column(nullable = false)
+    private LocalDate created;
 
     public Item() {
     }
 
-    public Item(String description, String mark, String bodyType) {
+    public Item(String description, String mark, String bodyType, LocalDate created) {
         this.description = description;
         this.mark = mark;
         this.bodyType = bodyType;
         this.isActive = true;
+        this.created = created;
     }
 
     public int getId() {
@@ -75,6 +79,14 @@ public class Item {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public LocalDate getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDate created) {
+        this.created = created;
     }
 
     @Override
