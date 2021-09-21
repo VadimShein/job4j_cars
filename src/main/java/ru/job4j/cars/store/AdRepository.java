@@ -29,12 +29,12 @@ public class AdRepository {
         }
     }
 
-    public List<Item> getLastItems() {
-        LocalDate fromDate = LocalDate.now().minusDays(1);
+    public List<Item> getLastDayItems() {
+        LocalDate now = LocalDate.now();
         return this.tx(
                 session -> session.createQuery("select it from Item it "
-                        + "where it.created > :fromDate", Item.class)
-                        .setParameter("fromDate", fromDate) .getResultList());
+                        + "where it.created = :now", Item.class)
+                        .setParameter("now", now) .getResultList());
     }
 
     public List<Item> getItemsWithPhoto() {
