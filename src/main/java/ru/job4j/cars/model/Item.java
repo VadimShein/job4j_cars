@@ -1,7 +1,6 @@
 package ru.job4j.cars.model;
 
 import javax.persistence.*;
-import java.io.File;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -11,26 +10,32 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(nullable = false)
-    private String description;
-    @Column(nullable = false)
     private String mark;
+    @Column(nullable = false)
+    private String model;
     @Column(name = "body_type", nullable = false)
     private String bodyType;
-    private File photo;
+    @Column(nullable = false)
+    private String description;
+    @Column(nullable = false)
+    private LocalDate created;
+    private String photo;
     @Column(name = "is_active")
     private boolean isActive;
     @Column(nullable = false)
-    private LocalDate created;
+    private String author;
 
     public Item() {
     }
 
-    public Item(String description, String mark, String bodyType, LocalDate created) {
-        this.description = description;
+    public Item(String mark, String model, String bodyType, String description, LocalDate created, String author) {
         this.mark = mark;
+        this.model = model;
         this.bodyType = bodyType;
-        this.isActive = true;
+        this.description = description;
         this.created = created;
+        this.author = author;
+        this.isActive = true;
     }
 
     public int getId() {
@@ -41,20 +46,20 @@ public class Item {
         this.id = id;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getMark() {
         return mark;
     }
 
     public void setMark(String mark) {
         this.mark = mark;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
     }
 
     public String getBodyType() {
@@ -65,20 +70,12 @@ public class Item {
         this.bodyType = bodyType;
     }
 
-    public File getPhoto() {
-        return photo;
+    public String getDescription() {
+        return description;
     }
 
-    public void setPhoto(File photo) {
-        this.photo = photo;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public LocalDate getCreated() {
@@ -87,6 +84,30 @@ public class Item {
 
     public void setCreated(LocalDate created) {
         this.created = created;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean isActive) {
+        this.isActive = isActive;
     }
 
     @Override
@@ -105,4 +126,18 @@ public class Item {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+    @Override
+    public String toString() {
+        return "Item{"
+                + "id=" + id
+                + ", mark='" + mark + '\''
+                + ", model='" + model + '\''
+                + ", bodyType='" + bodyType + '\''
+                + ", description='" + description + '\''
+                + ", created=" + created
+                + ", isActive=" + isActive
+                + ", author=" + author + '}';
+    }
 }
+

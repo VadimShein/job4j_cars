@@ -1,14 +1,24 @@
 create table item(
     id serial primary key,
-    description varchar,
     mark varchar not null,
+    model varchar not null,
     body_type varchar not null,
-    photo bytea,
+    description varchar not null,
+    created date not null,
+    photo varchar,
     is_active boolean,
-    user_id int references PUser(id)
+    author varchar not null  references users(name)
 );
 
-create table PUser(
+create table users(
     id serial primary key,
-    name varchar not null
-)
+    name varchar not null,
+    email varchar unique not null,
+    password varchar not null
+);
+
+create table users_item(
+    user_id int,
+    items_id int
+);
+
