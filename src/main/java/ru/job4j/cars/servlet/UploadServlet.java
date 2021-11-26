@@ -7,7 +7,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import ru.job4j.cars.model.Item;
-import ru.job4j.cars.store.PsqlStore;
+import ru.job4j.cars.store.ItemStore;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServlet;
@@ -47,9 +47,9 @@ public class UploadServlet extends HttpServlet {
         } catch (FileUploadException e) {
             LOG.error(e.getMessage(), e);
         }
-        Item item = PsqlStore.instOf().findItemById(Integer.parseInt(name));
+        Item item = ItemStore.instOf().getItemById(Integer.parseInt(name));
         item.setPhoto(name + ".JPG");
-        PsqlStore.instOf().updateItem(item);
+        ItemStore.instOf().saveOrUpdateItem(item);
         resp.sendRedirect(req.getContextPath() + "/index.jsp");
     }
 }

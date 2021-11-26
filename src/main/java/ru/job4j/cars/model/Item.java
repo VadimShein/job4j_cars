@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
+@Table(name = "items")
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,24 +19,37 @@ public class Item {
     @Column(nullable = false)
     private String description;
     @Column(nullable = false)
+    private int price;
+    @Column(nullable = false)
     private LocalDate created;
     private String photo;
     @Column(name = "is_active")
     private boolean isActive;
     @Column(nullable = false)
     private String author;
+    @ManyToOne
+    private User user;
 
     public Item() {
     }
 
-    public Item(String mark, String model, String bodyType, String description, LocalDate created, String author) {
+    public Item(String mark, String model, String bodyType, String description, int price, LocalDate created, String author) {
         this.mark = mark;
         this.model = model;
         this.bodyType = bodyType;
         this.description = description;
+        this.price = price;
         this.created = created;
         this.author = author;
         this.isActive = true;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public int getId() {
@@ -76,6 +90,14 @@ public class Item {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public LocalDate getCreated() {
@@ -135,9 +157,12 @@ public class Item {
                 + ", model='" + model + '\''
                 + ", bodyType='" + bodyType + '\''
                 + ", description='" + description + '\''
+                + ", price=" + price
                 + ", created=" + created
+                + ", photo='" + photo + '\''
                 + ", isActive=" + isActive
-                + ", author=" + author + '}';
+                + ", author='" + author + '\''
+                + ", user=" + user + '}';
     }
 }
 

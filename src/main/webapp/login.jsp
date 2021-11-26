@@ -17,7 +17,20 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
-    <script src="indexTable.js"></script>
+    <script>
+        function validate() {
+            let rsl = true
+            let atr = $('.form-control')
+            for (let node of atr) {
+                if (node.value === '' || node.value === null) {
+                    alert(node.getAttribute('title'));
+                    rsl = false
+                    break
+                }
+            }
+            return rsl
+        }
+    </script>
 
     <title>Login</title>
 </head>
@@ -27,7 +40,7 @@
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
-                Авторизация
+                <h3>Авторизация</h3>
             </div>
             <div class="card-body">
                 <%
@@ -39,12 +52,12 @@
                 <form action="<c:url value="auth.do"/>" method="post">
                     <div class="form-group">
                         <label>Почта</label>
-                        <input type="text" class="form-control" name="email" title="Заполните поле почта"
+                        <input type="text" class="form-control" name="email" title="Заполните поле: почта"
                                value="<%=(request.getParameter("email")!=null)?request.getParameter("email"):""%>">
                     </div>
                     <div class="form-group">
                         <label>Пароль</label>
-                        <input type="password" class="form-control" name="password" title="Заполните поле пароль">
+                        <input type="password" class="form-control" name="password" title="Заполните поле: пароль">
                     </div>
                     <button type="submit" class="btn btn-primary" onclick="return validate()">Войти</button>
                 </form>

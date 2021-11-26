@@ -24,28 +24,40 @@ function validatePhoto() {
     return rsl
 }
 
-function getItems(userName) {
+function getItems(userId) {
     let allItems = false
-    if (document.querySelector("input[name=select]:checked")) {
+    let withPhoto = false
+    let sort = $('#sortSelector :selected').val()
+    if (document.querySelector("input[id=allItemsSelector]:checked")) {
         allItems = true
+    }
+        if (document.querySelector("input[id=withPhotoSelector]:checked")) {
+        withPhoto = true
     }
     $.ajax({
         type: 'GET',
         crossDomain : true,
-        url: 'http://localhost:8080/job4j_cars/index.do?allItems=' + allItems,
+        url: 'http://localhost:8080/job4j_cars/index.do?allItems=' + allItems + '&sort=' + sort + "&withPhoto=" + withPhoto,
         dataType: 'text',
     }).done(function(data) {
         let dt = JSON.parse(data)
-        console.log(data)
+        if (allItems === true) {
+            $('#header').text('Все авто')
+        } else {
+            $('#header').text('Авто за сегодня')
+        }
         for (const [key, value] of Object.entries(dt)) {
             if (key === 'items') {
                 let tbody = $('tbody').text("")
                 for (let i = 0; i < value.length; i++) {
+                    if (allItems === false && `${value[i].active}` === "false") {
+                        continue
+                    }
                     let tr = $('<tr>')
                     let numb = $('<td>', {
                         text: `${value[i].id}`
                     })
-                    if (`${value[i].author}` === userName) {
+                    if (`${value[i].user.id}` === userId) {
                         numb.append($('<a>', {
                             href: "edit.jsp?itemId=" + `${value[i].id}`
                         }).append($('<i>', {
@@ -74,6 +86,9 @@ function getItems(userName) {
                     let description = $('<td>', {
                         text: `${value[i].description}`
                     })
+                    let price = $('<td>', {
+                        text: `${value[i].price}`
+                    })
                     let created = $('<td>', {
                         text: `${value[i].created}`
                     })
@@ -92,6 +107,7 @@ function getItems(userName) {
                     tr.append(model)
                     tr.append(bodyType)
                     tr.append(description)
+                    tr.append(price)
                     tr.append(created)
                     tr.append(author)
                     tr.append(isActive)
@@ -115,7 +131,8 @@ function getItemById(itemId) {
                 $('input[name="mark"]').val(`${value[0].mark}`)
                 $('input[name="model"]').val(`${value[0].model}`)
                 $('input[name="bodyType"]').val(`${value[0].bodyType}`)
-                $('input[name="description"]').val(`${value[0].description}`)
+                $('textarea[name="description"]').val(`${value[0].description}`)
+                $('input[name="price"]').val(`${value[0].price}`)
                 $('input[name="created"]').val(`${value[0].created}`)
                 $('input[name="active"]').val(`${value[0].active}`)
 
@@ -139,7 +156,8 @@ function getItemById(itemId) {
                     }).append($('<button>', {
                         type: "submit",
                         class: "btn btn-primary",
-                        text: "Delete Photo"
+                        text: "Delete Photo",
+                        width: "140px"
                     })))
                     photo.append($('<img>', {
                         src: "download.do?name=" + `${value[0].id}` + ".JPG",

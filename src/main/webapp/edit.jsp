@@ -16,9 +16,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
     <script src="indexTable.js"></script>
 
-    <title>Cars sale</title>
+    <title>Editing</title>
 </head>
 <body onload="getItemById('<c:out value="${param.itemId}"/>')">
 <div class="container">
@@ -39,12 +40,12 @@
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
-                Редактирование объявления
+                <h3>Редактирование объявления</h3>
             </div>
             <div class="card-body" style="display: inline">
                 <div class="form-group" style="float: left">
                     <form action="<c:url value="item.do?action=edit&itemId=${param.itemId}"/>" method="post">
-                        <button type="submit" class="btn btn-primary" onclick="return validate()" style="width: 200px">Сохранить изменения</button>
+                        <button type="submit" class="btn btn-primary" onclick="return validate()" style="width: 200px; margin-bottom: 20px">Сохранить изменения</button>
                         <div id="itemId">
                             <label>Номер объявления: <c:out value="${param.itemId}"/></label><br>
                             <input type="hidden" name="itemId">
@@ -69,7 +70,12 @@
                         </div>
                         <div id="description">
                             <label>Описание:</label><br>
-                            <input type="text" class="form-control" name="description" title="Заполните поле: описание">
+                            <textarea rows="3" class="form-control" name="description" title="Заполните поле: описание" style="height: 113px">
+                            </textarea>
+                        </div>
+                        <div id="price">
+                            <label>Цена:</label><br>
+                            <input type="text" class="form-control" name="price" title="Заполните поле: цена">
                         </div>
                         <div id="photo">
                             <label>Фото:</label><br>

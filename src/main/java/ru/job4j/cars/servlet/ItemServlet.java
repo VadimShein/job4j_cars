@@ -2,7 +2,7 @@ package ru.job4j.cars.servlet;
 
 import ru.job4j.cars.model.Item;
 import ru.job4j.cars.model.User;
-import ru.job4j.cars.store.PsqlStore;
+import ru.job4j.cars.store.ItemStore;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -21,17 +21,17 @@ public class ItemServlet extends HttpServlet {
 
         if ("deletePhoto".equals(req.getParameter("action"))) {
             int itemId = Integer.parseInt(req.getParameter("itemId"));
-            if (PsqlStore.instOf().findItemById(itemId).getPhoto() != null) {
+            Item item = ItemStore.instOf().getItemById(itemId);
+            if (item.getPhoto() != null) {
                 Files.delete(Paths.get("c:\\images\\" + itemId + ".JPG"));
             }
-                Item item = PsqlStore.instOf().findItemById(itemId);
-                item.setPhoto(null);
-                PsqlStore.instOf().addItem(item, user);
-                req.getRequestDispatcher("edit.jsp").forward(req, resp);
+            item.setPhoto(null);
+            ItemStore.instOf().saveOrUpdateItem(item);
+            req.getRequestDispatcher("edit.jsp").forward(req, resp);
         } else if ("close".equals(req.getParameter("action"))) {
-            Item item = PsqlStore.instOf().findItemById(Integer.parseInt(req.getParameter("itemId")));
+            Item item = ItemStore.instOf().getItemById(Integer.parseInt(req.getParameter("itemId")));
             item.setActive(Boolean.parseBoolean(req.getParameter("isActive")));
-            PsqlStore.instOf().addItem(item, user);
+            ItemStore.instOf().saveOrUpdateItem(item);
             resp.sendRedirect(req.getContextPath() + "/index.jsp");
         } else {
             LocalDate date;
@@ -44,7 +44,8 @@ public class ItemServlet extends HttpServlet {
                     req.getParameter("mark"),
                     req.getParameter("model"),
                     req.getParameter("bodyType"),
-                    req.getParameter("description"),
+                    req.getParameter("description").trim(),
+                    Integer.parseInt(req.getParameter("price")),
                     date,
                     user.getName()
             );
@@ -53,7 +54,8 @@ public class ItemServlet extends HttpServlet {
                 item.setActive(Boolean.parseBoolean(req.getParameter("active")));
             }
             item.setPhoto(req.getParameter("photo"));
-            PsqlStore.instOf().addItem(item, user);
+            item.setUser(user);
+            ItemStore.instOf().saveOrUpdateItem(item);
             resp.sendRedirect(req.getContextPath() + "/index.jsp");
         }
     }

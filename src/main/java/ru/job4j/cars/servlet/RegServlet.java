@@ -1,7 +1,7 @@
 package ru.job4j.cars.servlet;
 
 import ru.job4j.cars.model.User;
-import ru.job4j.cars.store.PsqlStore;
+import ru.job4j.cars.store.UserStore;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,12 +16,12 @@ public class RegServlet  extends HttpServlet {
         String name = req.getParameter("name");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        User findUser = PsqlStore.instOf().findUserByEmail(email);
+        User findUser = UserStore.instOf().findUserByEmail(email);
         if (findUser == null) {
             HttpSession sc = req.getSession();
             User user = new User(name, email, password);
             sc.setAttribute("user", user);
-            PsqlStore.instOf().createUser(user);
+            UserStore.instOf().createUser(user);
             resp.sendRedirect(req.getContextPath() + "/login.jsp");
         } else {
             req.setAttribute("error", "email уже был использован");

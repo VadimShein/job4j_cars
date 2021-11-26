@@ -1,8 +1,6 @@
 package ru.job4j.cars.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -18,8 +16,6 @@ public class User {
     private String email;
     @Column(nullable = false)
     private String password;
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Item> items = new ArrayList<>();
 
     public User() {
     }
@@ -31,22 +27,10 @@ public class User {
     }
 
     public User(int id, String name, String email, String password) {
-        this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
-    }
-
-    public void addItem(Item item) {
-        if (items.contains(item)) {
-            items.set(items.indexOf(item), item);
-        } else {
-            items.add(item);
-        }
-    }
-
-    public void deleteItem(Item item) {
-        items.remove(item);
+        this.id = id;
     }
 
     public int getId() {
@@ -104,6 +88,6 @@ public class User {
                 + "id=" + id
                 + ", name='" + name + '\''
                 + ", email='" + email + '\''
-                + ", items=" + items + '}';
+                + '}';
     }
 }

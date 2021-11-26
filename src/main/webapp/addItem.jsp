@@ -16,9 +16,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
     <script src="indexTable.js"></script>
 
-    <title>Add Item</title>
+    <title>New ad</title>
 </head>
 <body>
 <div class="container">
@@ -39,7 +40,7 @@
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
-                Новое объявление
+                <h3>Новое объявление</h3>
             </div>
             <div class="card-body">
                 <form action="<c:url value="item.do"/>" method="post">
@@ -58,7 +59,12 @@
                         </div>
                         <div>
                             <label>Описание</label><br>
-                            <input type="text" class="form-control" name="description" title="Заполните поле: описание">
+                            <textarea maxlength="255" rows="3" class="form-control" name="description" title="Заполните поле: описание" style="height: 113px">
+                            </textarea>
+                        </div>
+                        <div>
+                            <label>Цена</label><br>
+                            <input type="text" class="form-control" name="price" title="Заполните поле: цена">
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary" onclick="return validate()">Сохранить</button>

@@ -4,12 +4,18 @@
 # <p align="center">Cars Sale</p>
 
 ### Description:
-On this site advertisements for the sale of cars are published. The user can post and edit his ad after creating an account and authorizing.
+On this application advertisements for the sale of cars are published.
+The user can post and edit his ad after creating an account and authorizing.
+It is also possible to sort ads by various parameters.
 
 ### Screenshots:
 
-![ScreenShot](./images/img_1.PNG)
+![ScreenShot](./images/image_1.PNG)
 
-![ScreenShot](./images/img_2.PNG)
+![ScreenShot](./images/image_2.PNG)
 
-![ScreenShot](./images/img_3.PNG)
+![ScreenShot](./images/image_3.PNG)
+
+![ScreenShot](./images/image_4.PNG)
+
+![ScreenShot](./images/image_5.PNG)
