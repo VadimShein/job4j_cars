@@ -1,4 +1,4 @@
-create table item(
+create table if not exists item(
     id serial primary key,
     mark varchar not null,
     model varchar not null,
@@ -10,14 +10,14 @@ create table item(
     author varchar not null  references users(name)
 );
 
-create table users(
+create table if not exists users(
     id serial primary key,
     name varchar not null,
     email varchar unique not null,
     password varchar not null
 );
 
-create table users_item(
+create table if not exists users_item(
     user_id int,
     items_id int
 );
